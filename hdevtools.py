@@ -22,7 +22,7 @@ def show_hdevtools_error_and_disable():
     sublime.set_timeout(lambda: sublime.error_message(
         "SublimeHaskell: hdevtools was not found!\n"
         + "It's used for 'symbol info' and type inference\n"
-        + "Install it with 'cabal install hdevtools',\n"
+        + "Install it with 'cd ~; stack install hdevtools',\n"
         + "or adjust the 'add_to_PATH' setting for a custom location.\n"
         + "'enable_hdevtools' automatically set to False in the User settings."), 0)
 

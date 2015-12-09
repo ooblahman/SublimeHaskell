@@ -30,11 +30,7 @@ class SublimeHaskellAutobuild(sublime_plugin.EventListener):
 def current_cabal_build():
     """Current cabal build command"""
     args = []
-    if get_setting('use_cabal_dev'):
-        args += ['cabal-dev']
-    else:
-        args += ['cabal']
-
+    args += ['stack'] # this is the only option that works. no more cabal-dev bullshit
     args += ['build']
 
     return attach_sandbox(args)

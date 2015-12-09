@@ -905,7 +905,7 @@ class InspectorAgent(threading.Thread):
         # Event that is set (notified) when files have changed
         self.reinspect_event = threading.Event()
 
-    CABALMSG = 'Compiling Haskell CabalInspector'
+    CABALMSG = 'Compiling Haskell StackInspector'
     MODULEMSG = 'Compiling Haskell ModuleInspector'
 
     def run(self):
@@ -919,7 +919,7 @@ class InspectorAgent(threading.Thread):
 
             if exit_code != 0:
                 s.fail()
-                error_msg = u"SublimeHaskell: Failed to compile CabalInspector\n{0}".format(err)
+                error_msg = u"SublimeHaskell: Failed to compile StackInspector\n{0}".format(err)
                 wait_for_window(lambda w: self.show_errors(w, error_msg))
                 # Continue anyway
 
@@ -1027,7 +1027,7 @@ class InspectorAgent(threading.Thread):
                 self._refresh_project_info(cabal_dir, project_name, cabal_file)
 
             files_in_dir = list_files_in_dir_recursively(cabal_dir)
-            haskell_source_files = [x for x in files_in_dir if x.endswith('.hs') and ('dist/build/autogen' not in x)]
+            haskell_source_files = [x for x in files_in_dir if x.endswith('.hs') and ('dist/build/autogen' not in x) and ('.stack-work/' not in x)]
             filenames_loaded = 0
             for filename in haskell_source_files:
                 self._refresh_module_info(filename, False)
@@ -1229,7 +1229,7 @@ class SublimeHaskellAutocomplete(sublime_plugin.EventListener):
         filename = view.file_name()
         if filename:
             (cabal_dir, project_name) = get_cabal_project_dir_and_name_of_file(filename)
-            cabal = 'cabal-dev' if get_setting_async('use_cabal_dev') else 'cabal'
+            cabal = 'cabal'
             if project_name:
                 view.set_status('sublime_haskell_cabal', '{0}: {1}'.format(cabal, project_name))
 

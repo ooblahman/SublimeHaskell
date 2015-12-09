@@ -16,8 +16,8 @@ else:
 OUTPUT_PANEL_NAME = "haskell_run_output"
 
 cabal_tool = {
-    True: {'command': 'cabal-dev', 'message': 'Cabal-Dev', 'extra': lambda cmd: attach_sandbox(cmd)},
-    False: {'command': 'cabal', 'message': 'Cabal', 'extra': lambda cmd: cmd},
+    # True: {'command': 'cabal-dev', 'message': 'Cabal-Dev', 'extra': lambda cmd: attach_sandbox(cmd)},
+    False: {'command': 'stack', 'message': 'Stack', 'extra': lambda cmd: cmd},
 }
 
 cabal_config = {
@@ -101,10 +101,11 @@ def run_build(view, project_name, project_dir, config, use_cabal_dev=None):
     projects_being_built.add(project_name)
 
     # Run cabal or cabal-dev
-    if use_cabal_dev is None:
-        use_cabal_dev = get_setting_async('use_cabal_dev')
+    # if use_cabal_dev is None:
+       # use_cabal_dev = get_setting_async('use_cabal_dev')
 
-    tool = cabal_tool[use_cabal_dev]
+    # never use cabal-dev, because it no longer exists.
+    tool = cabal_tool[False]
 
     # Title of tool: Cabal, Cabal-Dev
     tool_title = tool['message']
